@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, forwardRef } from "react";
 import Tilt from "react-tilt";
 import { motion } from "framer-motion";
 
@@ -7,8 +7,13 @@ import { services } from "../constants";
 import { SectionWrapper } from "../hoc";
 import { fadeIn, textVariant } from "../utils/motion";
 
+// Custom Tilt component that forwards the ref
+const CustomTilt = forwardRef((props, ref) => (
+  <Tilt {...props} innerRef={ref} />
+));
+
 const ServiceCard = ({ index, title, icon }) => (
-  <Tilt className='xs:w-[250px] w-full'>
+  <CustomTilt className='xs:w-[250px] w-full'>
     <motion.div
       variants={fadeIn("right", "spring", index * 0.5, 0.75)}
       className='w-full green-pink-gradient p-[1px] rounded-[20px] shadow-card'
@@ -32,10 +37,25 @@ const ServiceCard = ({ index, title, icon }) => (
         </h3>
       </div>
     </motion.div>
-  </Tilt>
+  </CustomTilt>
 );
 
 const About = () => {
+  useEffect(() => {
+    // Disable findDOMNode deprecation warning
+    // This will suppress the warning caused by react-tilt
+    const originalConsoleError = console.error;
+    console.error = (...args) => {
+      if (/Warning: findDOMNode/.test(args[0])) {
+        return;
+      }
+      originalConsoleError.apply(console, args);
+    };
+    return () => {
+      console.error = originalConsoleError;
+    };
+  }, []);
+
   return (
     <>
       <motion.div variants={textVariant()}>
