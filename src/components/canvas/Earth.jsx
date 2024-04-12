@@ -9,7 +9,7 @@ const MIN_POLAR_ANGLE = Math.PI / 2;
 
 // Earth model component
 const EarthModel = () => {
-  const earth = useGLTF("./planet/scene.gltf");
+  const earth = useGLTF("/3D-portfolio/planet/scene.gltf");
   return <primitive object={earth.scene} scale={2.5} position-y={0} rotation-y={0} />;
 };
 
