@@ -11,7 +11,7 @@ jobs:
 
       # Step to install dependencies
       - name: Install dependencies
-        run: npm install --force
+        run: npm install
 
       # Step to debug current directory
       - name: Debug current directory
@@ -22,9 +22,14 @@ jobs:
         run: ls -al node_modules
 
       - run: npm run build
+
+      # Updated action to use Node.js 20
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_BRANDON_LARSEN_PORTFOLIO }}'
           channelId: live
           projectId: brandon-larsen-portfolio
+    env:
+      # Set Node.js version to 20
+      NODE_OPTIONS: '--node-arguments=--version=20'
