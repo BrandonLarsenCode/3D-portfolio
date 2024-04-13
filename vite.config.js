@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [
     react(),
   ],
-  base: "/3D-portfolio",
+  base: "/3D-portfolio", // Specify the correct base path for Firebase
   build: {
     minify: 'terser',
     terserOptions: {
